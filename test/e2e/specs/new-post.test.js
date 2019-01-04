@@ -1,17 +1,20 @@
 /**
  * Internal dependencies
  */
-import { newPost } from '../support/utils';
-import { activatePlugin, deactivatePlugin } from '../support/plugins';
+import {
+	activatePlugin,
+	createNewPost,
+	deactivatePlugin,
+} from '../support/utils';
 
 describe( 'new editor state', () => {
 	beforeAll( async () => {
 		await activatePlugin( 'gutenberg-test-plugin-post-formats-support' );
-		await newPost();
+		await createNewPost();
 	} );
 
 	afterAll( async () => {
-		await newPost();
+		await createNewPost();
 		await deactivatePlugin( 'gutenberg-test-plugin-post-formats-support' );
 	} );
 
@@ -82,7 +85,7 @@ describe( 'new editor state', () => {
 	} );
 
 	it( 'should be saveable with sufficient initial edits', async () => {
-		await newPost( { title: 'Here is the title' } );
+		await createNewPost( { title: 'Here is the title' } );
 
 		// Verify saveable by presence of the Save Draft button.
 		await page.$( 'button.editor-post-save-draft' );
